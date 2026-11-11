@@ -15,7 +15,7 @@ namespace Trivia
         {
             Highscorelist.Add(player);
 
-            Highscorelist = Highscorelist.OrderBy(u => u.Points).Take(5).ToList();
+            Highscorelist = Highscorelist.OrderBy(u => u.Points).Take(10).ToList();
 
             //Topplistan sparas i en JSON-fil 
             string json = JsonSerializer.Serialize(Highscorelist, new JsonSerializerOptions
