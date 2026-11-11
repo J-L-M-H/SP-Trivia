@@ -26,6 +26,7 @@ public class ChoiceQuestion: Quiz, IQuestion
 
     public void PrintQuestion()
     {
+        Console.WriteLine($"{Category} + {Difficulty}");
         Console.WriteLine(Text);
 
         for (int i = 0; i < Options.Count; i++)
