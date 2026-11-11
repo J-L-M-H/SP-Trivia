@@ -10,7 +10,7 @@ public class GameLogic
 
         public bool CloseGame { get; set; }
 
-        public Player player;
+        public Player newPlayer;
 
         public GameLogic()
         {
@@ -24,6 +24,7 @@ public class GameLogic
         int numberOfPlayers = 0;
         string answer;
         string name = "";
+        string target = "";
 
         //matar in antal spelare och kollar om det är mellan 2 och 4 spelare
         while (numberOfPlayers < 2 || numberOfPlayers > 4)
@@ -66,11 +67,41 @@ public class GameLogic
                 }
             }
 
-            players.Add(new Player(name));
+            newPlayer.Add(new Player(name));
             }
         }
 
+        TargetRound = 0;
 
+        //matar in antal spelare och kollar om det är mellan 2 och 4 spelare
+        while (TargetRound < 1 || TargetRound > 10)
+            {
+                Console.Write("Number of rounds (1-10): ");
+
+                 target = Console.ReadLine() ;
+
+              
+                    TargetRound = int.Parse(target);
+
+                    if (TargetRound < 1 || TargetRound > 10)
+                    {
+                        Console.WriteLine("Choose between 1 and 10 rounds.");
+                    }
+                
+                
+            }
+
+            if (RoundNumber > TargetRound ||
+                CloseGame)
+            {
+                EndGame();
+            }
+
+    }
+
+    public void EndGame()
+    {
+        
     }
 
 }
