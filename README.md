@@ -5,7 +5,8 @@ Branch: feature/HighScore
 
 Branchens mål är att skapa Klassen HighScore med en lista bestående av Player object. 
 
-Metoder i Klassen är tre: 
+Metoder i Klassen är tre:
+
 Skapa/hämta listan:
 If sats avgör om ny lista skapas när filen inte existerar, annars hämtar den listan genom Jsonserializers deserialize metod. 
 
