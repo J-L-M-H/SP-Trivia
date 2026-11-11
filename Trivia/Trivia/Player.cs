@@ -1,5 +1,5 @@
 
-namespace consoleAPP1;
+namespace Trivia;
 
 
 public class Player
