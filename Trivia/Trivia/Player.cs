@@ -1,4 +1,3 @@
-
 namespace Trivia;
 
 
@@ -20,6 +19,9 @@ public class Player
     public void UpdatePoints(int difficultyPoints)
     {
         Points += difficultyPoints;
+
+        //seriebonusen
+
     }
     public void UpdateCorrectAnswers()
     {

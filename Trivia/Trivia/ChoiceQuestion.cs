@@ -15,10 +15,10 @@ public class ChoiceQuestion: Quiz, IQuestion
 
      public override bool CheckAnswer(string answer)
     {
-        if(answer != "")
+        if(answer != "" || answer != null)
         {
             int input = int.Parse(answer);
-            return input == CorrectIndex;
+            return input == CorrectIndex; //villkor som retunerar true om det stämmer
 
         }
         return false;
@@ -26,7 +26,7 @@ public class ChoiceQuestion: Quiz, IQuestion
 
     public void PrintQuestion()
     {
-        Console.WriteLine($"{Category} + {Difficulty}");
+        Console.WriteLine($"{Category}, {GetPoints()} points");
         Console.WriteLine(Text);
 
         for (int i = 0; i < Options.Count; i++)
