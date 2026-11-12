@@ -122,14 +122,22 @@ public class GameLogic
     }
 
     public List<Quiz> CreateList()
+
     {
-        var questions = FileName.Categories
-    .SelectMany(category => category.Questions.Select(question =>
-    {
-        question.Category = category.Name;
-        return question;
-    }))
-    .ToList();
+        string json = File.ReadAllText("questions.json");
+
+        var questionData = JsonSerializer.Deserialize<QuestionData>(json);
+
+        var questions = questionData.Categories
+
+        .SelectMany(category => category.Questions.Select(question =>
+
+        {question.Category = category.Name;}))
+
+        .ToList();
+
+            return questions;
+
     }
         
         public Quiz PickQuestion()
