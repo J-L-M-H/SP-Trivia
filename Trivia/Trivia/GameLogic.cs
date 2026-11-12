@@ -108,7 +108,7 @@ public class GameLogic
             }
 
             // här skapas frågårna och hämtas från json efter att alla spelare matat in all data 
-            CreateList();
+            availableList = CreateList();
 
 
             // Kör rundan
@@ -119,9 +119,23 @@ public class GameLogic
 
     }
 
-    public void CreateList(string json)
+    public List<Quiz> CreateList()
+
     {
-        return;
+        string json = File.ReadAllText("questions.json");
+
+        var questionData = JsonSerializer.Deserialize<QuestionData>(json);
+
+        var questions = questionData.Categories
+
+        .SelectMany(category => category.Questions.Select(question =>
+
+        {question.Category = category.Name;}))
+
+        .ToList();
+
+            return questions;
+
     }
         
         public Quiz PickQuestion()

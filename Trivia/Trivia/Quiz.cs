@@ -1,3 +1,6 @@
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(MultipleChoiceQuestion), "multipleChoice")]
+[JsonDerivedType(typeof(TrueFalseQuestion), "trueFalse")]
 public abstract class Quiz{
     public string Type { get; set; }
     public string Text { get; set; }
