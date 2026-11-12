@@ -10,6 +10,8 @@ public class GameLogic
     public int TargetRound { get; set; }
     public bool CloseGame { get; set; }
 
+    public const string FileName = "questions.json";
+
     public HighScore highScore;
 
     public GameLogic(HighScore score)
@@ -108,7 +110,7 @@ public class GameLogic
             }
 
             // här skapas frågårna och hämtas från json efter att alla spelare matat in all data 
-            CreateList();
+            availableList = CreateList();
 
 
             // Kör rundan
@@ -119,9 +121,15 @@ public class GameLogic
 
     }
 
-    public void CreateList(string json)
+    public List<Quiz> CreateList()
     {
-        return;
+        var questions = FileName.Categories
+    .SelectMany(category => category.Questions.Select(question =>
+    {
+        question.Category = category.Name;
+        return question;
+    }))
+    .ToList();
     }
         
         public Quiz PickQuestion()
