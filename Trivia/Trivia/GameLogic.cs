@@ -10,6 +10,8 @@ public class GameLogic
     public int TargetRound { get; set; }
     public bool CloseGame { get; set; }
 
+    public const string FileName = "questions.json";
+
     public HighScore highScore;
 
     public GameLogic(HighScore score)
