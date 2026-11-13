@@ -134,22 +134,74 @@ public class GameLogic
                 return question;
             }))
             .ToList();
+Random random = new Random();
 
-        return questions;
+var randomizedList = questions
+    .OrderBy(x => random.Next())
+    .ToList();
+        return randomizedList;
     }
         
         public Quiz PickQuestion()
     {
+        /*   {
+       Random random = new Random();
+       int index = random.Next(availableDeck.Count);
+       Quiz = availableList[index];
+       availableDeck.RemoveAt(index);
+       return card;
+   }
+   */
         // kontrollerar alla spelare har fått en fråga
-            if (availableList.Count < players.Count)
+            if (availableList.Count == 0)
             {
-                Console.WriteLine("\nNot enough questions available only " + availableList.Count + " questions available.");
+                Console.WriteLine("\nNot enough questions available");
                 CloseGame = true;
                 return null;
             }
 
-            List<string> categories = availableList.Select(question => question.Category).ToList(); //skapar lista av alla category som vi har
+            
+            /*
+            Maja, välj kategori:
+            1. Programmering (6 frågor kvar)
+            2. Geografi (6 frågor kvar)
+            3. Allmänbildning (6 frågor kvar)
+            4. Slumpa
+            */
+            List<string> categories = availableList.Select(question => question.Category).Distinct().ToList(); //skapar lista av alla category som vi har och tar bort dubbletter
 
+            for(int i=0; i< categories.Count; i++)
+        {
+            int count = availableList.Count(question => question.Category == categories[i]); //
+            Console.WriteLine($"{i + 1}. {categories[i]} {categories[i]} {count} questions available");
+        }
+            Console.WriteLine($"{categories.Count + 1}. Random");
+
+
+
+            int pickedcategory = Console.ReadLine();
+           
+            for(int i=0; i< categories.Count; i++)
+        {
+            if (pickedcategory == categories.Count + 1)
+            {
+                categories[Random.Next(categories.Count)]
+                
+                 int index = availableList.Where(q => q.Category == {categories{i}});
+                 Quiz = availableList[index];
+                 availableDeck.RemoveAt(index);
+                 return card;i
+            }
+            else if (pickedcategory == (categories.Count + 1))
+            {
+
+            }
+            else
+            {
+                continue;
+            }
+        }
+           
             Quiz selectedQuestion = null;
             availableList.Remove(selectedQuestion);
             
@@ -162,9 +214,9 @@ public class GameLogic
 
             foreach (Player player in players)
         {
-            if (availableList.Count == 0)
+            if (availableList.Count < players.Count)
             {
-                Console.WriteLine("\nNot enough questions available");
+                Console.WriteLine($"Not enough questions available only " {});
                 CloseGame = true;
                 return;
             }
@@ -177,10 +229,6 @@ public class GameLogic
                 CloseGame = true;
                 return;
             }
-
-
-
-
 
 
             //avsluta spelet när alla rundor är klara
