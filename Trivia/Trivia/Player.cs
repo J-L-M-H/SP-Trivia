@@ -18,10 +18,27 @@ public class Player
     }
     public void UpdatePoints(int difficultyPoints)
     {
-        Points += difficultyPoints;
+        int seriesBonus = 0;
+        if(CorrectInRow == 2)
+        {
+            seriesBonus = 5;
+        }
+        else if (CorrectInRow == 3)
+        {
+            seriesBonus = 10;
+        }
+        else if (CorrectInRow == 4)
+        {
+            seriesBonus = 15;
+        }
+        else if (CorrectInRow >= 5)
+        {
+            seriesBonus = 20;
+        }
+        
+        Points += difficultyPoints + seriesBonus;
 
         //seriebonusen
-
     }
     public void UpdateCorrectAnswers()
     {

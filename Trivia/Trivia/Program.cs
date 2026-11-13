@@ -25,7 +25,7 @@ public class Program
             Console.WriteLine("3. Exit");
 
             Console.Write("Enter: ");
-            int input = int.Parse(Console.ReadLine() ?? ""); //null-coalescing operator returnerar värdet på vänster sida om den inte är null annars utvärderar den och returnerar värdet på höger sida
+            int input = int.Parse(Console.ReadLine()); 
             
 
             switch (input)
@@ -44,7 +44,7 @@ public class Program
 
                 default:
                     Console.WriteLine("invalid input choose betwwen 1 and 3.");
-                    break;
+                    continue;
             }
         }
     }

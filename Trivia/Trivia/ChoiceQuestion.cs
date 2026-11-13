@@ -15,7 +15,7 @@ public class ChoiceQuestion: Quiz, IQuestion
 
      public override bool CheckAnswer(string answer)
     {
-        if(answer != "" || answer != null)
+        if(answer != "" && answer != null)
         {
             int input = int.Parse(answer);
             return input == CorrectIndex; //villkor som retunerar true om det stämmer

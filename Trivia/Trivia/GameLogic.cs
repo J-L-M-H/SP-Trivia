@@ -29,6 +29,10 @@ public class GameLogic
             availableList.Clear();
             players.Clear();
 
+            RoundNumber = 0;
+            TargetRound = 0;
+            CloseGame = false;
+
             int numberOfPlayers = 0;
 
             //matar in antal spelare och kollar om det är mellan 2 och 4 spelare
@@ -114,44 +118,39 @@ public class GameLogic
 
 
             // Kör rundan
-            while (RoundNumber <= TargetRound && !CloseGame)
+            while (RoundNumber < TargetRound && !CloseGame)
             {
+                RoundNumber++;
                 PlayRound(players);
             }
 
     }
 
     public List<Quiz> CreateList()
-    {
-        string json = File.ReadAllText(FileName);
+{
+    string json = File.ReadAllText(FileName);
 
-        var questionData = JsonSerializer.Deserialize<QuestionData>(json);
+    var questionData = JsonSerializer.Deserialize<QuestionData>(json);
 
-        var questions = questionData.Categories
-            .SelectMany(category => category.Questions.Select(question =>
-            {
-                question.Category = category.Name;
-                return question;
-            }))
-            .ToList();
-Random random = new Random();
+    var questions = questionData.Categories
+        .SelectMany(category => category.Questions.Select(question =>
+        {
+            question.Category = category.Name;
+            return question;
+        }))
+        .ToList();
 
-var randomizedList = questions
-    .OrderBy(x => random.Next())
-    .ToList();
-        return randomizedList;
-    }
+    Random random = new Random();
+
+    var randomizedList = questions
+        .OrderBy(x => random.Next())
+        .ToList();
+
+    return randomizedList;
+}
         
         public Quiz PickQuestion()
     {
-        /*   {
-       Random random = new Random();
-       int index = random.Next(availableDeck.Count);
-       Quiz = availableList[index];
-       availableDeck.RemoveAt(index);
-       return card;
-   }
-   */
         // kontrollerar alla spelare har fått en fråga
             if (availableList.Count == 0)
             {
@@ -177,32 +176,39 @@ var randomizedList = questions
         }
             Console.WriteLine($"{categories.Count + 1}. Random");
 
+            int choice; //välja kategori du vill
 
-
-            int pickedcategory = Console.ReadLine();
-           
-            for(int i=0; i< categories.Count; i++)
-        {
-            if (pickedcategory == categories.Count + 1)
+            while (true)
             {
-                categories[Random.Next(categories.Count)]
-                
-                 int index = availableList.Where(q => q.Category == {categories{i}});
-                 Quiz = availableList[index];
-                 availableDeck.RemoveAt(index);
-                 return card;i
-            }
-            else if (pickedcategory == (categories.Count + 1))
-            {
+                Console.Write("choice: ");
 
+                choice = int.Parse(Console.ReadLine());
+
+                if (choice < 1 && choice > categories.Count)
+                {
+                    break;
+                }
+
+                Console.WriteLine("Invalid choice. Try again.");
             }
+
+            string pickedcategory; //spara kategorin du har valt
+
+            //här behandlas din val
+            if (choice != categories.Count + 1) //om valet är inte 4 dvs inte slumpa
+            {
+                pickedcategory = categories[choice-1]; //index i listan börjar från 0
+            }
+            //Om valet är 4
             else
             {
-                continue;
+                pickedcategory= categories[0];
             }
-        }
-           
-            Quiz selectedQuestion = null;
+
+            //skapa en lista med de frågorna som kategorin innehåller dvs från kategorin du har val
+            List<Quiz> categoryQuestions = availableList.Where(question => question.Category == pickedcategory) .ToList();
+        
+            Quiz selectedQuestion = categoryQuestions[]; //?????????
             availableList.Remove(selectedQuestion);
             
             return selectedQuestion;
@@ -216,7 +222,7 @@ var randomizedList = questions
         {
             if (availableList.Count < players.Count)
             {
-                Console.WriteLine($"Not enough questions available only " {});
+                Console.WriteLine($"Not enough questions available only ");
                 CloseGame = true;
                 return;
             }
@@ -229,6 +235,25 @@ var randomizedList = questions
                 CloseGame = true;
                 return;
             }
+
+            // Visa frågan
+        ((IQuestion)question).PrintQuestion();
+
+        // Kontrollera inmatningen
+        while (true)
+        {
+            Console.Write("Your answer (1-4): ");
+            string answer = Console.ReadLine();
+            if (question is ChoiceQuestion choiceQuestion)
+            {
+                choiceQuestion.CheckAnswer(answer);
+            }
+            else if (question is TrueFalseQuestions truefalseQuestions)
+            {
+                truefalseQuestions.CheckAnswer(answer);
+            }
+        }
+            Console.WriteLine("Invalid answer. Try again.");
 
 
             //avsluta spelet när alla rundor är klara
