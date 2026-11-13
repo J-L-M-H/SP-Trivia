@@ -1,6 +1,7 @@
+using System.Text.Json.Serialization;
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(MultipleChoiceQuestion), "multipleChoice")]
-[JsonDerivedType(typeof(TrueFalseQuestion), "trueFalse")]
+[JsonDerivedType(typeof(ChoiceQuestion), "multipleChoice")]
+[JsonDerivedType(typeof(TrueFalseQuestions), "trueFalse")]
 public abstract class Quiz{
     public string Type { get; set; }
     public string Text { get; set; }

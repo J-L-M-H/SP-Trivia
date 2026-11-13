@@ -6,7 +6,7 @@ namespace Trivia
     {
         public List<Player> Highscorelist { get; set; } = new List<Player>();
 
-        public const string FileName = "highScore.json";
+        public const string FileName = "HighScore.json";
 
         public void UpdateScore(Player player)
         {
