@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using System.Text.Json;
 
 namespace Trivia;
@@ -171,7 +172,7 @@ public class GameLogic
 
             for(int i=0; i< categories.Count; i++)
         {
-            int count = availableList.Count(question => question.Category == categories[i]); //
+            int count = availableList.Count(question => question.Category == categories[i]); //hämtar antal frågor för en viss categori 
             Console.WriteLine($"{i + 1}. {categories[i]} {categories[i]} {count} questions available");
         }
             Console.WriteLine($"{categories.Count + 1}. Random");
@@ -206,9 +207,9 @@ public class GameLogic
             }
 
             //skapa en lista med de frågorna som kategorin innehåller dvs från kategorin du har val
-            List<Quiz> categoryQuestions = availableList.Where(question => question.Category == pickedcategory) .ToList();
+            List<Quiz> categoryQuestions = availableList.Where(question => question.Category == pickedcategory).ToList();
         
-            Quiz selectedQuestion = categoryQuestions[]; //?????????
+            Quiz selectedQuestion = categoryQuestions[0];
             availableList.Remove(selectedQuestion);
             
             return selectedQuestion;
@@ -239,21 +240,38 @@ public class GameLogic
             // Visa frågan
         ((IQuestion)question).PrintQuestion();
 
+        bool CloseAnswering = true;
+        bool correctAnswer = true;
+
         // Kontrollera inmatningen
-        while (true)
+        while (CloseAnswering)
         {
             Console.Write("Your answer (1-4): ");
             string answer = Console.ReadLine();
             if (question is ChoiceQuestion choiceQuestion)
             {
-                choiceQuestion.CheckAnswer(answer);
+                correctAnswer = choiceQuestion.CheckAnswer(answer);
             }
             else if (question is TrueFalseQuestions truefalseQuestions)
             {
-                truefalseQuestions.CheckAnswer(answer);
+                 correctAnswer = truefalseQuestions.CheckAnswer(answer);
             }
+
+            CloseAnswering = false;
         }
+        
             Console.WriteLine("Invalid answer. Try again.");
+
+            if (correctAnswer)
+            {
+                player.UpdateCorrectInRow(true);
+                player.UpdatePoints(question.GetPoints());
+                player.UpdateCorrectAnswers();
+            }
+            else
+            {
+                player.UpdateCorrectInRow(false);
+            }
 
 
             //avsluta spelet när alla rundor är klara

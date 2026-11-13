@@ -18,6 +18,7 @@ public class Player
     }
     public void UpdatePoints(int difficultyPoints)
     {
+        
         int seriesBonus = 0;
         if(CorrectInRow == 2)
         {
