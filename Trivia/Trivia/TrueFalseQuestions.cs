@@ -27,6 +27,10 @@ public class TrueFalseQuestions : Quiz, IQuestion
         {
             return !Correct;
         }
+        else
+        {
+            Console.WriteLine("Invalid input, Try again");
+        }
 
         return false;
     }
@@ -35,6 +39,6 @@ public class TrueFalseQuestions : Quiz, IQuestion
     {
         Console.WriteLine($"{Category}, {GetPoints()} points");
         Console.WriteLine("Statement: " + Text);
-        Console.WriteLine("True (s) or False (f)?");
+        Console.WriteLine("True (t) or False (f)?");
     }
 }

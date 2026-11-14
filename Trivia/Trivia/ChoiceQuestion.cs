@@ -15,11 +15,17 @@ public class ChoiceQuestion: Quiz, IQuestion
 
      public override bool CheckAnswer(string answer)
     {
+        int ans = int.Parse(answer);
         if(answer != "" && answer != null)
         {
             int input = int.Parse(answer);
-            return input == CorrectIndex; //villkor som retunerar true om det stämmer
+            //villkor som retunerar true om det stämmer
+            return input == CorrectIndex +1; //CorrectIndex +1 för att räkningen eller indexet börjar från 0
 
+        }
+        if(ans <= 1 && ans >= Options.Count + 1)
+        {
+            Console.WriteLine("Invalid answer, Try again");
         }
         return false;
     }

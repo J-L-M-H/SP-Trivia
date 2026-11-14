@@ -131,7 +131,12 @@ public class GameLogic
 {
     string json = File.ReadAllText(FileName);
 
-    var questionData = JsonSerializer.Deserialize<QuestionData>(json);
+      var questionData = JsonSerializer.Deserialize<QuestionData>(json, new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    });
+
+
 
     var questions = questionData.Categories
         .SelectMany(category => category.Questions.Select(question =>
@@ -173,7 +178,7 @@ public class GameLogic
             for(int i=0; i< categories.Count; i++)
         {
             int count = availableList.Count(question => question.Category == categories[i]); //hämtar antal frågor för en viss categori 
-            Console.WriteLine($"{i + 1}. {categories[i]} {categories[i]} {count} questions available");
+            Console.WriteLine($"{i + 1}. {categories[i]} {count} questions available");
         }
             Console.WriteLine($"{categories.Count + 1}. Random");
 
@@ -185,12 +190,12 @@ public class GameLogic
 
                 choice = int.Parse(Console.ReadLine());
 
-                if (choice < 1 && choice > categories.Count)
+                if (choice >= 1 && choice <= categories.Count + 1) //categories.Count + 1 för att sista elmenten i listan räknas
                 {
                     break;
                 }
 
-                Console.WriteLine("Invalid choice. Try again.");
+                Console.WriteLine("Invalid input, Try again");
             }
 
             string pickedcategory; //spara kategorin du har valt
@@ -217,7 +222,7 @@ public class GameLogic
 
         public void PlayRound(List<Player> players)
     {
-            Console.WriteLine("=== Round " + RoundNumber + "of" + TargetRound + " ===");
+            Console.WriteLine("\n=== Round " + RoundNumber + " of " + TargetRound + " ===");
 
             foreach (Player player in players)
         {
@@ -259,18 +264,21 @@ public class GameLogic
 
             CloseAnswering = false;
         }
+
+    
         
-            Console.WriteLine("Invalid answer. Try again.");
 
             if (correctAnswer)
             {
                 player.UpdateCorrectInRow(true);
                 player.UpdatePoints(question.GetPoints());
                 player.UpdateCorrectAnswers();
+                Console.WriteLine( $"Correct answer! {player.Name} gets {question.GetPoints()} points. " + $"Total: {player.Points} points.");
             }
             else
             {
                 player.UpdateCorrectInRow(false);
+                Console.WriteLine("Wrong answer");
             }
 
 

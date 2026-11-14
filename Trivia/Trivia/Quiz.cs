@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+
+//kommer C# att skapa rätt frågeklass automatiskt utifrån "type" i JSON-filen. Det betyder att du i nuläget inte behöver anropa din parameterkonstruktor manuellt i klasserna ChoiceQuestion och TrueFalseQuestions.
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 [JsonDerivedType(typeof(ChoiceQuestion), "multipleChoice")]
 [JsonDerivedType(typeof(TrueFalseQuestions), "trueFalse")]

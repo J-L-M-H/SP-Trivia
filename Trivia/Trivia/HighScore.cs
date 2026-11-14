@@ -15,23 +15,34 @@ namespace Trivia
             Highscorelist = Highscorelist.OrderByDescending(u => u.Points).Take(10).ToList();
 
             //Topplistan sparas i en JSON-fil 
-            string json = JsonSerializer.Serialize(Highscorelist); //Serialize omvandlar string till json data
+            string json = JsonSerializer.Serialize(Highscorelist, new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    }); //Serialize omvandlar string till json data
 
             File.WriteAllText(FileName, json);
         }
+        
         public void FetchScore()
         {
-
+            try
+        {
             if (!File.Exists(FileName))
-            {
-                Highscorelist = new List<Player>();
-                Console.WriteLine("The file is corrupted.");
-                return;
-            }
-                //läses in Topplistan från JSON när programmet startar 
-                string jsonFile = File.ReadAllText(FileName);
-
-                Highscorelist = JsonSerializer.Deserialize<List<Player>>(jsonFile); //Deserialize omvandlar Json data to Plain text (string)
+                {
+                    return;
+                }
+                
+            //läses in Topplistan från JSON när programmet startar 
+            string json = File.ReadAllText(FileName);
+            var loaded = JsonSerializer.Deserialize<List<Player>>(json, new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    });//Deserialize omvandlar Json data to Plain text (string)
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Could not load top list: {e.Message}");
+        }
             
         }
 
