@@ -39,5 +39,6 @@ public class ChoiceQuestion: Quiz, IQuestion
         {
             Console.WriteLine($"{i + 1}. {Options[i]}");
         }
+        Console.Write("Your answer (1-4): ");
     }
 }

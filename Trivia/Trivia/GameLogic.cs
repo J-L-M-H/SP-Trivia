@@ -80,7 +80,9 @@ public class GameLogic
                         {
                             if (player.Name.Equals(name))
                             {
-                                Console.WriteLine("Name already exists.");
+                                Console.WriteLine("This name is already taken. Try again");
+                                name = "";
+                                break;
                             }
                         }
 
@@ -108,9 +110,9 @@ public class GameLogic
                         Console.WriteLine("Choose between 1 and 10 rounds.");
                     }
                 }
-                catch
+                catch(Exception e)
                 {
-                    Console.WriteLine("Enter a valid number.");
+                    Console.WriteLine($"{e.Message} Enter a valid number.");
                 }
             }
 
@@ -124,6 +126,9 @@ public class GameLogic
                 RoundNumber++;
                 PlayRound(players);
             }
+
+            //avsluta spelet när alla rundor är klara
+                EndGame();
 
     }
 
@@ -228,7 +233,7 @@ public class GameLogic
         {
             if (availableList.Count < players.Count)
             {
-                Console.WriteLine($"Not enough questions available only ");
+                Console.WriteLine($"Not enough questions available");
                 CloseGame = true;
                 return;
             }
@@ -251,15 +256,22 @@ public class GameLogic
         // Kontrollera inmatningen
         while (CloseAnswering)
         {
-            Console.Write("Your answer (1-4): ");
             string answer = Console.ReadLine();
             if (question is ChoiceQuestion choiceQuestion)
             {
                 correctAnswer = choiceQuestion.CheckAnswer(answer);
+                if (!correctAnswer)
+                    {
+                        Console.WriteLine($"The right answer is {choiceQuestion.CorrectIndex}");
+                    }
             }
             else if (question is TrueFalseQuestions truefalseQuestions)
             {
                  correctAnswer = truefalseQuestions.CheckAnswer(answer);
+                    if (!correctAnswer)
+                    {
+                        Console.WriteLine($"The right answer is {truefalseQuestions.Correct}");
+                    }
             }
 
             CloseAnswering = false;
@@ -282,12 +294,6 @@ public class GameLogic
             }
 
 
-            //avsluta spelet när alla rundor är klara
-            if (RoundNumber > TargetRound || CloseGame)
-            {
-                EndGame();
-            }
-
         }
 
     }
@@ -303,8 +309,6 @@ public class GameLogic
             Player player = sortedPlayers[i];
 
             Console.WriteLine($"{i + 1}. {player.Name}  {player.Points} points  " + $"({player.CorrectAnswers} of {RoundNumber})");
-
-            player.Date = DateTime.Now;
 
             highScore.UpdateScore(player);
 

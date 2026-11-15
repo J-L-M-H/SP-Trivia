@@ -22,28 +22,22 @@ namespace Trivia
 
             File.WriteAllText(FileName, json);
         }
-        
+
         public void FetchScore()
         {
-            try
-        {
+ 
             if (!File.Exists(FileName))
-                {
-                    return;
-                }
-                
+            {
+                Highscorelist = new List<Player>();
+                return;
+            }
             //läses in Topplistan från JSON när programmet startar 
-            string json = File.ReadAllText(FileName);
-            var loaded = JsonSerializer.Deserialize<List<Player>>(json, new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true
-    });//Deserialize omvandlar Json data to Plain text (string)
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Could not load top list: {e.Message}");
-        }
-            
+            else
+            {
+                string jsonFile = File.ReadAllText(FileName);
+ 
+                Highscorelist = JsonSerializer.Deserialize<List<Player>>(jsonFile, new JsonSerializerOptions{PropertyNameCaseInsensitive = true});//Deserialize omvandlar Json data to Plain text (string)
+            }
         }
 
 

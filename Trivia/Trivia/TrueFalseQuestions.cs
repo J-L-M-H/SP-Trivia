@@ -39,6 +39,6 @@ public class TrueFalseQuestions : Quiz, IQuestion
     {
         Console.WriteLine($"{Category}, {GetPoints()} points");
         Console.WriteLine("Statement: " + Text);
-        Console.WriteLine("True (t) or False (f)?");
+        Console.Write("True (t) or False (f)? ");
     }
 }
