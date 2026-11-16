@@ -44,7 +44,7 @@ public class Program
 
                 default:
                     Console.WriteLine("invalid input choose betwwen 1 and 3.");
-                    continue;
+                    break;
             }
         }
     }
