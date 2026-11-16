@@ -37,9 +37,55 @@ Båda frågeklasserna implementerar också metoden PrintQuestio() från interfac
 
 Båda frågeklasserna implementerar också metoden 'PrintQuestion' från interfacet 'IQuestion', som ansvarar för att visa frågetexten på skärmen. Metoden implementeras på olika sätt beroende på frågans typ och hur den ska presenteras för spelaren.
 
-### feature/GameLogic by Rami
-klassen GameLogic ansvarar bland annat för att starta ett nytt spel, ta emot information från spelarna och hålla reda på rundorna. När spelet startar får användarna ange hur många spelare som ska delta, spelarnas namn och hur många rundor de vill spela. Den kontroller och säkerställer att antalet spelare är mellan 2 och 4, att namnen inte är tomma eller lika och att antalet rundor är mellan 1 och 10.
 
-Metoden PlayRound() i klassen GameLogic används för att låta spelarna svara på frågor i tur och ordning. Varje spelare får välja en kategori och därefter visas en fråga. När spelaren har svarat kontrolleras svaret och spelaren får poäng om svaret är rätt.
+### feature/ GameLogic 
+Author: Rami, Jonathan och Bryan. 
+ 
+Availablelist:  
+Används för att spara questions jsonfil objekt. 
+ 
+Players: 
+Lista av player objekt för nuvarande instans av spelet.  
+ 
+Roundnumber: 
+Antal rundor som spelats. 
+ 
+Targetround: 
+Planerad slutrunda.  
+ 
+Closegame: 
+Boolean som avslutar spelet.  
+ 
+Filename: 
+Plats för frågefilen.  
+ 
+Highscore: 
+Används för att updatera highscore listan. 
+ 
+Gamelogic 
+En konstruktor som skapar ett objekt av gamelogic klassen.  
+ 
+Startgame: 
+Återställa temporära filer. 
+Kräver namn och antal spelare samt antal rundor.  
+Använder createlist för att skapa en frågelista för den nuvarande instansen. 
+Loopar sen genom playround tills targetround är noll.   
 
-EndGame() visar slutresultatet och bestämmer vem som vinner. Spelarna sorteras efter sina poäng. Om flera spelare har samma poäng jämförs även antalet rätta svar. Om båda värdena är lika delar spelarna på segern. Resultaten skickas också vidare till klassen HighScore för att visa Topplistan som visar de tio bästa resultaten genom tiderna
+ 
+
+Createlist: 
+Läser in frågor från jsonfilen 
+Omvandlar först till sträng sen till objekt med kategorien som egenskap och blandar sedan listan. 
+ 
+Pickquestion: 
+Hämtar vilka kategorier som finns i available list för att sedan representera dem som val samt random även mäng av kvarvarande frågor.  
+Hanter sedan själva valet logiken och returnerar objekt av vald kategori eller slumpad  
+ 
+Playround: 
+Loopar genom varje spelare i player list som då får välja kategori och svara på sin fråga i turordning. 
+Updaterar sedan player objekt beroende på svar.  
+ 
+Endgame: 
+Updaterar highscore json och presenterar resultat.  
+ 
+ 
