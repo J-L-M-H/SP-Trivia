@@ -15,6 +15,7 @@ Player-klassen används av spelets logik för att hålla reda på spelarens pres
 
 Branch: feature/HighScore 
 Author: Jonathan Holm 
+
 Branchens mål är att skapa Klassen HighScore med en lista bestående av Player object. 
 
 Metoder i Klassen är tre:
@@ -29,8 +30,14 @@ Uppdatera listan:
 Tar emot player object och lägger till dom i listan, använder sen order by LINQ uttryck för att lägga i ordning av poäng och behåller de 10 högsta. Därefter används Jsonserializers serialize metod för att förbereda listan för att formattera för json och File.writealltext för att uppdatera json filen. 
 
 
-### feature/GameLogic by Rami
+### feature/question by Rami
+Klasserna ChoiceQuestion och TrueFalseQuestion används för flervalsfrågor och sant-falskt frågor. De innehåller svarsalternativ och information om vilket alternativ som är rätt. Klasserna ärver metoden CheckAnswer() från den abstrakta klassen Quiz. Metoden används för att kontrollera om spelarens svar är korrekt eller inte. Klassen Quiz innehåller även metoden GetPoints(), som hanterar poängsystemet.
 
+Båda frågeklasserna implementerar också metoden PrintQuestio() från interfacet IQuestion, som ansvarar för att visa frågetexten på skärmen. Metoden implementeras på olika sätt beroende på frågans typ och hur den ska presenteras för spelaren.
+
+Båda frågeklasserna implementerar också metoden 'PrintQuestion' från interfacet 'IQuestion', som ansvarar för att visa frågetexten på skärmen. Metoden implementeras på olika sätt beroende på frågans typ och hur den ska presenteras för spelaren.
+
+### feature/GameLogic by Rami
 klassen GameLogic ansvarar bland annat för att starta ett nytt spel, ta emot information från spelarna och hålla reda på rundorna. När spelet startar får användarna ange hur många spelare som ska delta, spelarnas namn och hur många rundor de vill spela. Den kontroller och säkerställer att antalet spelare är mellan 2 och 4, att namnen inte är tomma eller lika och att antalet rundor är mellan 1 och 10.
 
 Metoden PlayRound() i klassen GameLogic används för att låta spelarna svara på frågor i tur och ordning. Varje spelare får välja en kategori och därefter visas en fråga. När spelaren har svarat kontrolleras svaret och spelaren får poäng om svaret är rätt.
