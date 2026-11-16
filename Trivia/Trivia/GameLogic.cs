@@ -186,28 +186,36 @@ public class GameLogic
         }
             Console.WriteLine($"{categories.Count + 1}. Random");
 
-            int choice; //välja kategori du vill
+            string choice = ""; //välja kategori du vill
 
-            while (true)
+            while (choice == "")
             {
+                try
+                {
                 Console.Write("choice: ");
 
-                choice = int.Parse(Console.ReadLine());
+                choice = Console.ReadLine();
 
-                if (choice >= 1 && choice <= categories.Count + 1) //categories.Count + 1 för att sista elmenten i listan räknas
+                if (int.Parse(choice) >= 1 && int.Parse(choice) <= categories.Count + 1) //categories.Count + 1 för att sista elmenten i listan räknas
                 {
                     break;
                 }
 
-                Console.WriteLine("Invalid input, Try again");
+                }
+
+                catch (Exception e){
+                choice = "";
+                Console.WriteLine($"{e.Message}");
+                }
+                
             }
 
             string pickedcategory; //spara kategorin du har valt
 
             //här behandlas din val
-            if (choice != categories.Count + 1) //om valet är inte 4 dvs inte slumpa
+            if (int.Parse(choice) != categories.Count + 1) //om valet är inte 4 dvs inte slumpa
             {
-                pickedcategory = categories[choice-1]; //index i listan börjar från 0
+                pickedcategory = categories[int.Parse(choice)-1]; //index i listan börjar från 0
             }
             //Om valet är 4
             else

@@ -17,7 +17,7 @@ namespace Trivia
             //Topplistan sparas i en JSON-fil 
             string json = JsonSerializer.Serialize(Highscorelist, new JsonSerializerOptions
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true, WriteIndented = true
     }); //Serialize omvandlar string till json data
 
             File.WriteAllText(FileName, json);
