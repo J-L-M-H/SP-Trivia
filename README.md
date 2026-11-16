@@ -31,6 +31,12 @@ Tar emot player object och lägger till dom i listan, använder sen order by LIN
 
 ### feature/question by Rami
 
-Jag hade ansvar för att skapa frågorna, visa dem på skärmen samt kontrollera om spelaren svarade rätt eller fel. Jag delade in frågorna i två kategorier: sant- eller falskt-frågor och textfrågor. För att hantera dessa skapade jag klasserna 'ChoiceQuestion' och 'TrueFalseQuestion', som ärver metoden 'CheckAnswer' från den abstrakta klassen 'Quiz'. Metoden används för att kontrollera om spelarens svar är korrekt eller inte. Klassen 'Quiz' innehåller även metoden 'GetPoints', som hanterar poängsystemet.
+Klasserna ChoiceQuestion och TrueFalseQuestion används för flervalsfrågor och sant-falskt frågor. De innehåller svarsalternativ och information om vilket alternativ som är rätt. Klasserna ärver metoden CheckAnswer() från den abstrakta klassen Quiz. Metoden används för att kontrollera om spelarens svar är korrekt eller inte. Klassen Quiz innehåller även metoden GetPoints(), som hanterar poängsystemet.
 
-Båda frågeklasserna implementerar också metoden 'PrintQuestion' från interfacet 'IQuestion', som ansvarar för att visa frågetexten på skärmen. Metoden implementeras på olika sätt beroende på frågans typ och hur den ska presenteras för spelaren.
+Båda frågeklasserna implementerar också metoden PrintQuestio() från interfacet IQuestion, som ansvarar för att visa frågetexten på skärmen. Metoden implementeras på olika sätt beroende på frågans typ och hur den ska presenteras för spelaren.
+
+klassen GameLogic ansvarar bland annat för att starta ett nytt spel, ta emot information från spelarna och hålla reda på rundorna. När spelet startar får användarna ange hur många spelare som ska delta, spelarnas namn och hur många rundor de vill spela. Den kontroller och säkerställer att antalet spelare är mellan 2 och 4, att namnen inte är tomma eller lika och att antalet rundor är mellan 1 och 10.
+
+Metoden PlayRound() i klassen GameLogic används för att låta spelarna svara på frågor i tur och ordning. Varje spelare får välja en kategori och därefter visas en fråga. När spelaren har svarat kontrolleras svaret och spelaren får poäng om svaret är rätt.
+
+EndGame() visar slutresultatet och bestämmer vem som vinner. Spelarna sorteras efter sina poäng. Om flera spelare har samma poäng jämförs även antalet rätta svar. Om båda värdena är lika delar spelarna på segern. Resultaten skickas också vidare till klassen HighScore för att visa Topplistan som visar de tio bästa resultaten genom tiderna
