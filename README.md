@@ -113,7 +113,7 @@ Program.cs
 
 Author Rami
 
-huvudmeny. När programmet startar skapas ett objekt av HighScore, som hämtar tidigare sparade resultat. Därefter skapas ett objekt av GameLogic, som får tillgång till topplistan. I huvudmenyn kan spelaren välja att starta ett nytt spel, visa topplistan eller avsluta programmet. Jag använder en while-loop för att menyn ska visas igen tills användaren väljer att avsluta.
+Huvudmeny. När programmet startar skapas ett objekt av HighScore, som hämtar tidigare sparade resultat. Därefter skapas ett objekt av GameLogic, som får tillgång till topplistan. I huvudmenyn kan spelaren välja att starta ett nytt spel, visa topplistan eller avsluta programmet. Jag använder en while-loop för att menyn ska visas igen tills användaren väljer att avsluta.
  
  
 
