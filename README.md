@@ -15,6 +15,7 @@ Player-klassen används av spelets logik för att hålla reda på spelarens pres
 
 Branch: feature/HighScore 
 Author: Jonathan Holm 
+
 Branchens mål är att skapa Klassen HighScore med en lista bestående av Player object. 
 
 Metoder i Klassen är tre:

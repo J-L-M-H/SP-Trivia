@@ -1,8 +1,3 @@
-
-using QuizBattle.Interfaces;
-
-namespace QuizBattle.Models;
-
 public class TrueFalseQuestions : Quiz, IQuestion
 {
     public bool Correct { get; set; }
@@ -32,13 +27,18 @@ public class TrueFalseQuestions : Quiz, IQuestion
         {
             return !Correct;
         }
+        else
+        {
+            Console.WriteLine("Invalid input, Try again");
+        }
 
         return false;
     }
 
     public void PrintQuestion()
     {
+        Console.WriteLine($"{Category}, {GetPoints()} points");
         Console.WriteLine("Statement: " + Text);
-        Console.WriteLine("True (s) or False (f)?");
+        Console.Write("True (t) or False (f)? ");
     }
 }

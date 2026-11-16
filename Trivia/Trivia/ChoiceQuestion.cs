@@ -15,23 +15,30 @@ public class ChoiceQuestion: Quiz, IQuestion
 
      public override bool CheckAnswer(string answer)
     {
-        if(answer != "")
+        int ans = int.Parse(answer);
+        if(answer != "" && answer != null)
         {
             int input = int.Parse(answer);
-            return input == CorrectIndex;
+            //villkor som retunerar true om det stämmer
+            return input == CorrectIndex +1; //CorrectIndex +1 för att räkningen eller indexet börjar från 0
 
+        }
+        if(ans <= 1 && ans >= Options.Count + 1)
+        {
+            Console.WriteLine("Invalid answer, Try again");
         }
         return false;
     }
 
     public void PrintQuestion()
     {
-        Console.WriteLine($"{Category} + {Difficulty}");
+        Console.WriteLine($"{Category}, {GetPoints()} points");
         Console.WriteLine(Text);
 
         for (int i = 0; i < Options.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {Options[i]}");
         }
+        Console.Write("Your answer (1-4): ");
     }
 }
