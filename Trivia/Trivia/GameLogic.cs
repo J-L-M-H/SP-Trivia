@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace Trivia;
@@ -10,7 +11,7 @@ public class GameLogic
     public int TargetRound { get; set; }
     public bool CloseGame { get; set; }
 
-    public const string FileName = "questions.json";
+    public const string FileName = "data/questions.json";
 
     public HighScore highScore;
 
@@ -262,27 +263,55 @@ public class GameLogic
 
         // Kontrollera inmatningen
         while (CloseAnswering)
+{
+    string answer = Console.ReadLine();
+
+    try
+    {
+        if (question is ChoiceQuestion choiceQuestion)
         {
-            string answer = Console.ReadLine();
-            if (question is ChoiceQuestion choiceQuestion)
+            if (answer is string)
             {
                 correctAnswer = choiceQuestion.CheckAnswer(answer);
-                if (!correctAnswer)
-                    {
-                        Console.WriteLine($"The right answer is {choiceQuestion.CorrectIndex}");
-                    }
-            }
-            else if (question is TrueFalseQuestions truefalseQuestions)
-            {
-                 correctAnswer = truefalseQuestions.CheckAnswer(answer);
-                    if (!correctAnswer)
-                    {
-                        Console.WriteLine($"The right answer is {truefalseQuestions.Correct}");
-                    }
-            }
 
-            CloseAnswering = false;
+                if (!correctAnswer)
+                {
+                    Console.WriteLine($"The right answer is {choiceQuestion.Options[choiceQuestion.CorrectIndex]}");
+                }
+
+                CloseAnswering = false;
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number between 1 and 4.");
+            }
         }
+        else if (question is TrueFalseQuestions truefalseQuestions)
+        {
+            if (answer == "t" || answer == "true" || answer == "f" || answer == "false")
+            {
+                correctAnswer = truefalseQuestions.CheckAnswer(answer);
+
+                if (!correctAnswer)
+                {
+                    Console.WriteLine($"The right answer is {truefalseQuestions.Correct}");
+                }
+                CloseAnswering = false;
+                
+            }
+            else
+            {
+               Console.WriteLine("Please answer with True or False.");
+               CloseAnswering = true;
+
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
 
     
         

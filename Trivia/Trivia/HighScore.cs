@@ -6,13 +6,13 @@ namespace Trivia
     {
         public List<Player> Highscorelist { get; set; } = new List<Player>();
 
-        public const string FileName = "HighScore.json";
+        public const string FileName = "data/HighScore.json";
 
         public void UpdateScore(Player player)
         {
             Highscorelist.Add(player);
 
-            Highscorelist = Highscorelist.OrderByDescending(u => u.Points).Take(10).ToList();
+            Highscorelist = Highscorelist.OrderByDescending(u => u.Points).ThenByDescending(c => c.CorrectAnswers).Take(10).ToList();
 
             //Topplistan sparas i en JSON-fil 
             string json = JsonSerializer.Serialize(Highscorelist, new JsonSerializerOptions
