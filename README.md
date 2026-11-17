@@ -78,7 +78,9 @@ För att kunna köra projektet behöver du:
 
 2- Git för att hämta projektet från GitHub. 
 
-3- Visual Studio (vscode) eller Visual Studio Code. 
+3- Visual Studio (vscode) eller Visual Studio Code.
+
+4- Sätta json filerna i data mappen till "Always copy".
 
 Så här gör du: 
 
