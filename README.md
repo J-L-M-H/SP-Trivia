@@ -125,11 +125,11 @@ Author Bryan
 
 Player-klassen representerar en spelare i Quiz Battle och ansvarar för att lagra spelarens namn, poäng antal korrekta svar, svarsstreak samt datum och tid då spelarobjektet skapades. Klassen innehåller en konstruktor som initierar spelarens värden samt metoder för att uppdatera spelarens resultat under spelets gång. 
 
-UpdatePoints() uppdaterar spelarens totala poäng. 
+UpdatePoints() uppdaterar spelarens totala poäng genom att lägga till poäng baserade på frågans svårighetsgrad samt eventuell streakbonus.
 
-UpdateCorrectAnswers() registrerar korrekta svar. 
+UpdateCorrectAnswers() registrerar korrekta svar genom att öka spelarens antal korrekta svar.
 
-UpdateCorrectInRow() hanterar spelarens streak av korrekta svar och återställer den vid fel svar. 
+UpdateCorrectInRow() hanterar spelarens streak genom att öka räknaren vid korrekta svar och återställa den vid fel svar.
 
 Player-klassen används av spelets logik för att hålla reda på spelarens prestation och resultat. 
 
